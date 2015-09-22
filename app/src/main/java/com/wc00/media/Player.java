@@ -5,6 +5,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -18,17 +20,22 @@ public class Player {
         this.mediaPlayer = mediaPlayer;
     }
 
-
-    public void play(Context context, String filePath) throws IOException {
-        mediaPlayer.stop();
-        Uri uri = Uri.fromFile(new File(filePath));
-        mediaPlayer.setDataSource(context, uri);
-        mediaPlayer.prepare();
+    public void play(String filePath) throws IOException {
+        stop();
+        setDataSource(filePath);
         mediaPlayer.start();
+    }
+
+    private void setDataSource(String filePath) throws IOException {
+        FileInputStream inputStream = new FileInputStream(filePath);
+        FileDescriptor descriptor = inputStream.getFD();
+        mediaPlayer.setDataSource(descriptor);
+        mediaPlayer.prepare();
     }
 
     public void stop() {
         mediaPlayer.stop();
+        mediaPlayer.reset();
     }
 
     public void release() {

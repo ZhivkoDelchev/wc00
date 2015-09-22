@@ -18,5 +18,6 @@
         </activity>
         <service android:name="com.wc00.media.PlayerService" />
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 </manifest>

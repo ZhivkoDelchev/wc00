@@ -34,7 +34,7 @@ public class PlayerService extends Service {
         switch (action) {
             case ACTION_PLAY:
                 try {
-                    player.play(getApplicationContext(), intent.getStringExtra(EXTRA_FILE_PATH));
+                    player.play(intent.getStringExtra(EXTRA_FILE_PATH));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
