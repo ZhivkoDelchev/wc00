@@ -7,13 +7,7 @@ import android.os.IBinder;
 
 import java.io.IOException;
 
-/**
- * Created by Jako on 13.9.2015.
- */
 public class PlayerService extends Service {
-
-    public static final String ACTION_PLAY = "PLAY";
-    public static final String ACTION_STOP = "STOP";
 
     public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
     private Player player;
@@ -32,14 +26,14 @@ public class PlayerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent.getAction();
         switch (action) {
-            case ACTION_PLAY:
+            case PlayerActions.ACTION_PLAY:
                 try {
                     player.play(intent.getStringExtra(EXTRA_FILE_PATH));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
-            case ACTION_STOP:
+            case PlayerActions.ACTION_STOP:
                 player.stop();
                 break;
         }

@@ -9,9 +9,6 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-/**
- * Created by Jako on 13.9.2015.
- */
 public class Player {
 
     private final MediaPlayer mediaPlayer;

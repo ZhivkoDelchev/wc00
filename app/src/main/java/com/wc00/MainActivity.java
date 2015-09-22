@@ -13,18 +13,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.wc00.media.PlayerIntentStarter;
 import com.wc00.media.PlayerService;
-
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private Button playButton;
     private Button stopButton;
+    private PlayerIntentStarter playerIntentStarter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        playerIntentStarter = new PlayerIntentStarter(this);
 
         playButton = (Button) findViewById(R.id.PlayButton);
         playButton.setOnClickListener(this);
@@ -58,14 +61,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == playButton) {
-            Intent intent = new Intent(this, PlayerService.class);
-            intent.setAction(PlayerService.ACTION_PLAY);
-            intent.putExtra(PlayerService.EXTRA_FILE_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music/journey.mp3");
-            startService(intent);
+            String songFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music/journey.mp3";
+            playerIntentStarter.firePlayIntent(songFilePath);
         } else if (v == stopButton) {
-            Intent intent = new Intent(this, PlayerService.class);
-            intent.setAction(PlayerService.ACTION_STOP);
-            startService(intent);
+            playerIntentStarter.fireStopIntent();
         }
     }
 }
